@@ -1,5 +1,7 @@
 package pojo;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 /**
@@ -10,7 +12,9 @@ import javax.persistence.*;
 @Table(name = "customers")
 public class Customer {
     @Id
-    private Integer id;
+    @GeneratedValue(generator = "johnu")
+    @GenericGenerator(strategy = "uuid", name = "johnu")
+    private String id;
     // 实体完整性约束
     @Column(name = "c_name", nullable = true, length = 40, insertable = false, updatable = true, unique = false)
     private String name;
@@ -23,10 +27,10 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(Integer id, String name, int age) {
-        this.id = id;
+    public Customer(String name, int age, boolean sex) {
         this.name = name;
         this.age = age;
+        this.sex = sex;
     }
 
     public boolean isSex() {
@@ -37,11 +41,11 @@ public class Customer {
         this.sex = sex;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

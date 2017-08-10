@@ -14,7 +14,6 @@ public class TestCustomer2 {
         EntityManager manager = factory.createEntityManager();
 
         Customer customer = new Customer();
-        customer.setId(3);
         customer.setName("cody3");
         customer.setAge(33);
 
