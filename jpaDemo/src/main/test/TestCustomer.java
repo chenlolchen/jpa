@@ -36,7 +36,6 @@ public class TestCustomer {
     @Test
     public void testSave(){
         Customer customer = new Customer();
-        customer.setId(1);
         customer.setName("cody3");
         customer.setAge(33);
         customer.setSex(true);
@@ -45,13 +44,28 @@ public class TestCustomer {
         tx.begin();
 
         manager.persist(customer);
-
+//        manager.flush(); // 缓存清理， 将manager里的东西清理掉
+//        manager.clear(); // 清空对象， 不执行
         tx.commit();
+//        tx.commit();
     }
 
     @Test
     public void testLoad(){
-        Customer customer = manager.find(Customer.class, 3);
+        Customer customer = manager.find(Customer.class, 4);
+        manager.refresh(customer);
+        System.out.println(customer);
+    }
+
+    @Test
+    public void testMerge(){
+        Customer customer = manager.find(Customer.class, 4);
+        EntityTransaction tx = manager.getTransaction();
+        tx.begin();
+        manager.clear();
+        Customer cc = manager.merge(customer);  // 这个方法会触发一次查询
+        cc.setName("yyyy");
+        tx.commit();
         System.out.println(customer);
     }
 

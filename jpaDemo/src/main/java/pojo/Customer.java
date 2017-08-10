@@ -8,8 +8,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "customers")
+@SequenceGenerator(name="johnq",sequenceName="john_seq01",initialValue=1,allocationSize=1)
 public class Customer {
     @Id
+    @GeneratedValue(generator="johnq",strategy=GenerationType.SEQUENCE)
     private Integer id;
     // 实体完整性约束
     @Column(name = "c_name", nullable = true, length = 40, insertable = false, updatable = true, unique = false)
