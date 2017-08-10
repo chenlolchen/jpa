@@ -1,4 +1,5 @@
 import org.junit.*;
+import pojo.Address;
 import pojo.Customer;
 
 import javax.persistence.EntityManager;
@@ -40,10 +41,33 @@ public class TestCustomer {
         customer.setAge(33);
         customer.setSex(true);
 
+        Customer customer2 = new Customer();
+        customer.setName("cody2343");
+        customer.setAge(66);
+        customer.setSex(true);
+
+        Address address = new Address("cc1", "1001");
+        Address address2 = new Address("cc2", "10231");
+
+//        这个东西只能是一边 add 另外一边
+        address.getCustomerSet().add(customer);
+        address.getCustomerSet().add(customer2);
+
+        address2.getCustomerSet().add(customer);
+
+//        customer.getAddressSet().add(address);
+//        customer.getAddressSet().add(address2);
+//
+//        customer2.getAddressSet().add(address);
+
+
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
 
         manager.persist(customer);
+        manager.persist(customer2);
+        manager.persist(address);
+        manager.persist(address2);
 //        manager.flush(); // 缓存清理， 将manager里的东西清理掉
 //        manager.clear(); // 清空对象， 不执行
         tx.commit();
@@ -52,9 +76,10 @@ public class TestCustomer {
 
     @Test
     public void testLoad(){
-        Customer customer = manager.find(Customer.class, 4);
-        manager.refresh(customer);
-        System.out.println(customer);
+        Customer customer = manager.find(Customer.class, 9);
+        for (Address address : customer.getAddressSet()){
+            System.out.println(address);
+        }
     }
 
     @Test
