@@ -1,10 +1,7 @@
 import org.junit.*;
 import pojo.Customer;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 
 /**
  * Created by CHENCO7 on 8/10/2017.
@@ -36,8 +33,7 @@ public class TestCustomer {
     @Test
     public void testSave(){
         Customer customer = new Customer();
-        customer.setId(1);
-        customer.setName("cody3");
+        customer.setName("cody3rrr");
         customer.setAge(33);
         customer.setSex(true);
 
