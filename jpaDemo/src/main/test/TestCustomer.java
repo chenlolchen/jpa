@@ -36,7 +36,6 @@ public class TestCustomer {
     @Test
     public void testSave(){
         Customer customer = new Customer();
-        customer.setId(1);
         customer.setName("cody3");
         customer.setAge(33);
         customer.setSex(true);
