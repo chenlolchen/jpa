@@ -1,4 +1,5 @@
 import org.junit.*;
+import pojo.Address;
 import pojo.Customer;
 
 import javax.persistence.EntityManager;
@@ -40,9 +41,20 @@ public class TestCustomer {
         customer.setAge(33);
         customer.setSex(true);
 
+        Address address = new Address("city1", "1000");
+        Address address2 = new Address("city2", "1001");
+
+        customer.getAddressSet().add(address);
+        customer.getAddressSet().add(address2);
+
+        address.setCustomer(customer);
+        address2.setCustomer(customer);
+
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
 
+//        manager.persist(address);
+//        manager.persist(address2);
         manager.persist(customer);
 //        manager.flush(); // 缓存清理， 将manager里的东西清理掉
 //        manager.clear(); // 清空对象， 不执行
@@ -52,9 +64,9 @@ public class TestCustomer {
 
     @Test
     public void testLoad(){
-        Customer customer = manager.find(Customer.class, 4);
-        manager.refresh(customer);
+        Customer customer = manager.find(Customer.class, 1);
         System.out.println(customer);
+        customer.getAddressSet();
     }
 
     @Test
