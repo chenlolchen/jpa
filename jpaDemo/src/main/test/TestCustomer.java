@@ -39,6 +39,8 @@ public class TestCustomer {
         customer.setName("cody3");
         customer.setAge(33);
         customer.setSex(true);
+        customer.getTels().add("ass");
+        customer.getTels().add("cvb");
 
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
@@ -51,10 +53,23 @@ public class TestCustomer {
     }
 
     @Test
+    public void testUpdate(){
+        Customer customer = manager.find(Customer.class, 1);
+        EntityTransaction tx = manager.getTransaction();
+        tx.begin();
+        customer.getTels().clear();
+        tx.commit();
+    }
+
+    @Test
     public void testLoad(){
-        Customer customer = manager.find(Customer.class, 4);
-        manager.refresh(customer);
+        Customer customer = manager.find(Customer.class, 2);
+//        manager.refresh(customer);
         System.out.println(customer);
+        manager.close();  // LazyInitializationException
+        for (String s: customer.getTels()){
+            System.out.println(s);
+        }
     }
 
     @Test
@@ -70,18 +85,9 @@ public class TestCustomer {
     }
 
     @Test
-    public void testUpdate(){
-        Customer customer = manager.find(Customer.class, 1);
-        EntityTransaction tx = manager.getTransaction();
-        tx.begin();
-        customer.setAge(111);
-        customer.setAge(69);
-        tx.commit();
-    }
-
-    @Test
     public void testDelete(){
-        Customer customer = manager.find(Customer.class, 1);
+        // 对于值对象来说， 级联删除是必选项
+        Customer customer = manager.find(Customer.class, 2);
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
         manager.remove(customer);

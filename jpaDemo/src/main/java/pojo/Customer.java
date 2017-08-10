@@ -1,6 +1,8 @@
 package pojo;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by CHENCO7 on 8/9/2017.
@@ -21,6 +23,20 @@ public class Customer {
 
     @Column(columnDefinition = "char(2)") // 改变数据库字段存放的值
     private boolean sex;
+
+    // 多对一, 外键在'多'上
+    @ElementCollection(fetch = FetchType.EAGER)
+    @JoinTable(name = "tels", joinColumns = {@JoinColumn(name = "c_id")})
+    @Column(name = "tel_num")
+    private Set<String> tels = new HashSet<String>();
+
+    public Set<String> getTels() {
+        return tels;
+    }
+
+    public void setTels(Set<String> tels) {
+        this.tels = tels;
+    }
 
     public Customer() {
     }
