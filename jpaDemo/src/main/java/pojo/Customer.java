@@ -22,6 +22,10 @@ public class Customer {
     @Column(columnDefinition = "char(2)") // 改变数据库字段存放的值
     private boolean sex;
 
+    // 提高效率, 定义查找 address 的 customer 属性
+    @OneToOne(mappedBy = "customer")
+    private Address address;
+
     public Customer() {
     }
 
