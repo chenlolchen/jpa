@@ -9,8 +9,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "customers")
 public class Customer {
-    @Id
-    private Integer id;
+    @EmbeddedId
+    private FullName id;
+
     // 实体完整性约束
     @Column(name = "c_name", nullable = true, length = 40, insertable = false, updatable = true, unique = false)
     private String name;
@@ -23,11 +24,7 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(Integer id, String name, int age) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-    }
+
 
     public boolean isSex() {
         return sex;
@@ -37,11 +34,11 @@ public class Customer {
         this.sex = sex;
     }
 
-    public Integer getId() {
+    public FullName getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(FullName id) {
         this.id = id;
     }
 

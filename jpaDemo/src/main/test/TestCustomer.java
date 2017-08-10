@@ -1,5 +1,6 @@
 import org.junit.*;
 import pojo.Customer;
+import pojo.FullName;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -36,7 +37,10 @@ public class TestCustomer {
     @Test
     public void testSave(){
         Customer customer = new Customer();
-        customer.setId(1);
+        FullName id = new FullName();
+        id.setFirstName("john");
+        id.setLastName("yu2");
+        customer.setId(id);
         customer.setName("cody3");
         customer.setAge(33);
         customer.setSex(true);
