@@ -64,8 +64,10 @@ public class TestCustomer {
 
     @Test
     public void testLoad(){
-        Customer customer = manager.find(Customer.class, 1);
-        System.out.println(customer);
+//        Customer customer = manager.find(Customer.class, 1);
+//        System.out.println(customer);
+        Address address = manager.find(Address.class, 1);
+        System.out.println(address.getCustomer());
 //        customer.getAddressSet();
     }
 
