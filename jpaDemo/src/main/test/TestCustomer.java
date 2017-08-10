@@ -44,18 +44,18 @@ public class TestCustomer {
         Address address = new Address("city1", "1000");
         Address address2 = new Address("city2", "1001");
 
-        customer.getAddressSet().add(address);
-        customer.getAddressSet().add(address2);
+//        customer.getAddressSet().add(address);
+//        customer.getAddressSet().add(address2);
 
         address.setCustomer(customer);
         address2.setCustomer(customer);
 
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
-
-//        manager.persist(address);
-//        manager.persist(address2);
         manager.persist(customer);
+        manager.persist(address);
+        manager.persist(address2);
+//        manager.persist(customer);
 //        manager.flush(); // 缓存清理， 将manager里的东西清理掉
 //        manager.clear(); // 清空对象， 不执行
         tx.commit();
@@ -66,7 +66,7 @@ public class TestCustomer {
     public void testLoad(){
         Customer customer = manager.find(Customer.class, 1);
         System.out.println(customer);
-        customer.getAddressSet();
+//        customer.getAddressSet();
     }
 
     @Test
