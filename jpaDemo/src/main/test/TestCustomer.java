@@ -1,4 +1,5 @@
 import org.junit.*;
+import pojo.Address;
 import pojo.Customer;
 
 import javax.persistence.EntityManager;
@@ -40,6 +41,22 @@ public class TestCustomer {
         customer.setAge(33);
         customer.setSex(true);
 
+        Address address = new Address();
+        address.setCity("zhuhai");
+        address.setZipcode("1001");
+
+        Address address2 = new Address();
+        address2.setCity("shanghai");
+        address2.setZipcode("1002");
+
+        Address address3 = new Address();
+        address3.setCity("tianjin");
+        address3.setZipcode("1003");
+
+        customer.getAddressSet().add(address);
+        customer.getAddressSet().add(address2);
+        customer.getAddressSet().add(address3);
+
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
 
@@ -74,8 +91,11 @@ public class TestCustomer {
         Customer customer = manager.find(Customer.class, 1);
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
-        customer.setAge(111);
-        customer.setAge(69);
+        Address address = new Address();
+        address.setCity("shanghai");
+        address.setZipcode("1002");
+
+        customer.getAddressSet().remove(address);
         tx.commit();
     }
 
