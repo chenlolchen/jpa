@@ -1,6 +1,7 @@
 package pojo;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by CHENCO7 on 8/9/2017.
@@ -22,6 +23,13 @@ public class Customer {
     @Column(columnDefinition = "char(2)") // 改变数据库字段存放的值
     private boolean sex;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date birth;
+
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] img;
+
     public Customer() {
     }
 
@@ -29,6 +37,22 @@ public class Customer {
         this.id = id;
         this.name = name;
         this.age = age;
+    }
+
+    public byte[] getImg() {
+        return img;
+    }
+
+    public void setImg(byte[] img) {
+        this.img = img;
+    }
+
+    public Date getBirth() {
+        return birth;
+    }
+
+    public void setBirth(Date birth) {
+        this.birth = birth;
     }
 
     public boolean isSex() {

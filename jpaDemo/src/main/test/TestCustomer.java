@@ -5,6 +5,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.io.*;
+import java.util.Date;
 
 /**
  * Created by CHENCO7 on 8/10/2017.
@@ -34,11 +36,18 @@ public class TestCustomer {
     }
 
     @Test
-    public void testSave(){
+    public void testSave() throws Exception {
+        InputStream in = new FileInputStream("11.jpg");
+        byte[] buf = new byte[in.available()];
+        in.read(buf);
+        in.close();
+
         Customer customer = new Customer();
         customer.setName("cody3");
         customer.setAge(33);
         customer.setSex(true);
+        customer.setBirth(new Date());
+        customer.setImg(buf);
 
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
@@ -51,10 +60,15 @@ public class TestCustomer {
     }
 
     @Test
-    public void testLoad(){
-        Customer customer = manager.find(Customer.class, 4);
+    public void testLoad() throws IOException {
+        Customer customer = manager.find(Customer.class, 1);
         manager.refresh(customer);
         System.out.println(customer);
+
+        // load img
+        OutputStream out = new FileOutputStream("xx.jpg");
+        out.write(customer.getImg());
+        out.close();
     }
 
     @Test
