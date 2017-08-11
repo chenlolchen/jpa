@@ -16,7 +16,7 @@ public class Customer {
     @GenericGenerator(strategy = "uuid", name = "johnu")
     private String id;
     // 实体完整性约束
-    @Column(name = "c_name", nullable = true, length = 40, insertable = false, updatable = true, unique = false)
+    @Column(name = "c_name", nullable = true, length = 40)
     private String name;
     //    @Transient // 不写入表
     private int age;

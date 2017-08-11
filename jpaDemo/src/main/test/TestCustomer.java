@@ -1,10 +1,13 @@
 import org.junit.*;
 import pojo.Customer;
+import pojo.Customer_;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.List;
 
 /**
  * Created by CHENCO7 on 8/10/2017.
@@ -50,8 +53,14 @@ public class TestCustomer {
 
     @Test
     public void testLoad(){
-        Customer customer = manager.find(Customer.class, 3);
-        System.out.println(customer);
+        CriteriaBuilder qb = manager.getCriteriaBuilder();
+        CriteriaQuery<Customer> c = qb.createQuery(Customer.class);
+        Root<Customer> p = c.from(Customer.class);
+        Predicate condition = qb.equal(p.get(Customer_.name), "cody3");
+        c.where(condition);
+        TypedQuery<Customer> q = manager.createQuery(c);
+        List<Customer> result = q.getResultList();
+        System.out.println(result.get(0));
     }
 
     @Test
